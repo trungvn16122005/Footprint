@@ -790,3 +790,94 @@ body.dark .form-errors {
 body.dark .form-error {
   color: #f8b4b4;
 }
+
+/*Trung*/
+body.about-page .topSection {
+  max-width: 900px;
+  margin: 90px auto 0 auto;
+  padding: 0 20px;
+}
+
+.infoSection {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 16px;
+}
+
+.sectionHeading {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.bulletList {
+  padding-left: 18px;
+  margin-top: 8px;
+}
+
+.bulletList li {
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+
+.miniCards {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.miniCard {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--bg);
+}
+
+.miniTitle {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.stepBox {
+  margin-top: 10px;
+}
+
+.stepRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stepNum {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stepText {
+  color: var(--muted);
+}
+
+/* Dark mode support */
+body.dark .infoSection,
+body.dark .miniCard {
+  background: #121212;
+  border-color: #333;
+}
+
+body.dark .stepNum {
+  background: #ffd27f;
+  color: #000;
+}
