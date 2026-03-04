@@ -105,7 +105,7 @@ def check_domain_safety(url):
 
     if match:
         owner = match.get('owner', 'Unknown Entity')
-        # Use your new refined logic instead of just '10'
+        # Use new refined logic instead of just '10'
         score = calculate_refined_score(match) if isinstance(match, dict) else 10
         return True, owner, score
         
@@ -497,7 +497,6 @@ def login():
 
         session['user_id'] = user.id
         session['username'] = user.username
-        # Activity logging disabled for now (circular import issues in production)
         log_activity("login")
         flash("Login successful!", "success")
 
@@ -590,7 +589,6 @@ def ratings_page():
 # ===== Logout =====
 @app.route("/logout")
 def logout():
-    # Activity logging disabled for now (circular import issues in production)
     log_activity("logout")
     session.clear()
     return redirect(url_for('home'))
@@ -1292,7 +1290,6 @@ def api_url_review_summaries():
 @app.route("/scan", methods=["POST"])
 def scan():
     domain = request.form["domain"]
-    # Activity logging disabled for now (circular import issues in production)
     log_activity("run_scan", domain)
     return redirect(url_for("dashboard"))
     # scan logic here
@@ -1335,7 +1332,7 @@ def calculate_refined_score(tracker_data):
     if tracker_data.get('category') == 'ads':
         base_score += 4
     if tracker_data.get('category') == 'session_replay':
-        base_score += 8  # Very high risk (records your mouse movements)
+        base_score += 8  # Very high risk (records mouse movements)
         
     return min(base_score, 10) # Cap it at 10
 
