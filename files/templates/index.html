@@ -1,0 +1,210 @@
+<!--Ishaal-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>footPrint</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+<body>
+    <div class="topContent">
+        <div class="header">
+            
+             <!--<div class="headerLogo">footPrint</div>-->
+
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/fplogo.png') }}">
+            </div>
+
+            <div class="headerItems">
+
+                 <!--Trung Nguyen-->
+                <div>
+                    <ul class="headerLinks">
+                        <li><a href="{{ url_for('about') }}" class="aboutUs">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <button id="themeToggle">Theme Toggle</button>
+
+                <!-- add login button here -->
+                <button id="logInBtn" type="submit">Log In</button>
+            </div>
+        </div>
+
+        <div class="topSection">
+            <div class="banner">Track • Detect • Protect</div>
+
+            <div class="allText">
+                <div class="title">Find Data Leaks Before They Spread</div>
+
+                <div class="subtextOne">
+                    <span class="highlight">Priority</span> Identify risks early,&nbsp;
+                    <span class="highlight">Protect</span> regain control,&nbsp;
+                    <span class="highlight">Prevent</span> stop exposure.
+                </div>
+            </div>
+
+         
+        
+       
+            <div class="stats">
+                <div class="filesMonitred">
+                    <div class="statTitle">Files Monitored</div>
+                    <div class="statText">120K+</div>
+                </div>
+
+                <div class="meanDetectionTime">
+                    <div class="statTitle">Mean Detection Time</div>
+                    <div class="statText">2.1s</div>
+                </div>
+
+                <div class="integration">
+                    <div class="statTitle">Integrations</div>
+                    <div class="statText">25+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="midContent">
+        <div class="subtextTwo">Key Features</div>
+
+        <div class="featureBoxes">
+            <div class="leakPathMapping">
+                <div class="featureTitle">Leak Path Mapping🔍</div>
+                <div class="featureText">Visualize a file's journey from source to destination 
+                    across email, drives, and devices.</div>
+            </div>
+
+            <div class="realTimeAlerts">
+                <div class="featureTitle">Real Time Alerts🔔</div>
+                <div class="featureText">Receive instant notifications when sensitive 
+                    content moves to unapproved locations.</div>
+            </div>
+
+            <div class="policyGuardrails">
+                <div class="featureTitle">Policy Gaurdrails🛡️</div>
+                <div class="featureText">Block risky transfers automatically with rules by user, 
+                    group, file type, and labels.</div>
+            </div>
+
+            <div class="incidentAnalysisx">
+                <div class="featureTitle">Incident Analysis📝</div>
+                <div class="featureText">Review past exposure events to find weak points and prevent future leaks.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="endContent">
+        <div class="subtextThree">How It Works!</div>
+
+        <div class="howItWorks">
+            <div class="box1">
+                <div class="stepNum">1</div>
+                <div class="worksTitle">Login</div>
+                <div class="worksText">Sign in to access your dashboard and begin monitoring</div>
+            </div>
+
+            <div class="arrow">&rarr;</div>
+
+            <div class="box2">
+                <div class="stepNum">2</div>
+                <div class="worksTitle">Enter Website</div>
+                <div class="worksText">Add the website or page you want Footprint to analyze</div>
+            </div>
+
+            <div class="arrow">&rarr;</div>
+
+            <div class="box3">
+                <div class="stepNum">3</div>
+                <div class="worksTitle">Run Cookie & IP Check</div>
+                <div class="worksText">We scan the site for cookies, trackers, and IP data leaks in real time</div>
+            </div>
+
+            <div class="arrow">&rarr;</div>
+
+            <div class="box4">
+                <div class="stepNum">4</div>
+                <div class="worksTitle">Detect & Blocking</div>
+                <div class="worksText">Footprint flags suspicious activity and blocks risky connections automatically</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="signUpPopUp">
+        <div class="popupText">
+            <div class="titleTwo">Ready to see your print?</div>
+            <div class="textTwo">Sign Up Right Now!</div>
+        </div>
+
+        <div class="signUpBtn">
+            <button id="signUpBtn">Sign Up</button>
+        </div>
+    </div>
+
+<!--Terry-->
+<!-- ===== Login Modal ===== -->
+<div id="loginModal" class="modal auth-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+  
+      <!-- Flash messages -->
+      <div class="modalFlashes">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+  
+      <form class="login-form" action="{{ url_for('login') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Login</button>
+      </form>
+  
+      <p class="modal-bottom-text">
+        Don’t have an account? 
+        <a href="#" id="openSignupLink">Create one</a>
+      </p>
+    </div>
+  </div>
+
+<!--Terry-->
+<!-- ===== Signup Modal ===== -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+  
+      <form action="{{ url_for('signup') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required minlength="8">
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" name="confirm_password" required minlength="8">
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+  
+    <div class="footer">
+        Copyright @ footPrint 2025
+    </div>
+    <!--This is will make the login to POPUP-->
+<div id="popupContainer"></div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

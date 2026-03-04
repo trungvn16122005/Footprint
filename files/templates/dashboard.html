@@ -1,0 +1,178 @@
+<!--Ishaal-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboardStyles.css') }}">
+    <script src="{{ url_for('static', filename='dashboardScripts.js') }}" defer></script>
+
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/fplogo.png') }}" alt="Logo">
+        </div>
+        
+        <div class="headerItems">
+            <button id="themeToggle" type="button">Theme Toggle</button>
+            <button id="logOutBtn" type="button">Log Out</button>
+        </div>
+    </div>
+
+    <div class="dashboardContainer">
+        <!-- personalized hello message -->
+        <div class="HelloMessage">
+            Hello, {{ username }}!
+        </div>
+
+        <div class="dashboardBody">
+            <div class="leftColumn">
+                <div class="inputCard">
+                    <h2>Check Your Digital Footprint</h2>
+                    <p class="subtitle">Enter your information to check if it has been compromised in a data breach</p>
+
+                    <form id="breachCheckForm">
+                        <div class="inputGroup">
+                            <label for="userEmail">Email Address</label>
+                            <input type="email" id="userEmail" placeholder="Enter your email address" required>
+                        </div>
+
+                        <div class="inputGroup">
+                            <label for="additionalEmail">Additional Email Address</label>
+                            <input type="email" id="additionalEmail" placeholder="Enter additional email address">
+                        </div>
+
+                        <div class="inputGroup">
+                            <label for="websiteURL">Website URL</label>
+                            <input type="url" id="websiteURL" placeholder="Enter website URL">
+                        </div>
+
+                        <div class="inputGroup">
+                            <label for="userPassword">Password</label>
+                            <input type="password" id="userPassword" placeholder="Enter password">
+                        </div>
+
+                        <button type="submit" class="checkButton">Check for Breaches</button>
+                    </form>
+                </div>
+
+                <!-- Data Removal Protocol Summary (in left column) -->
+                <div id="removalProtocolSummary" class="removalProtocolSummary" style="display: none;">
+                    <h3>Data Removal Protocol</h3>
+                    <p class="subtitle">
+                        These data brokers may also have your information. Use the official opt-out links and track your progress.
+                    </p>
+                    <div id="removalBreachesList"></div>
+                    <h4 style="margin-top: 15px;">Summary</h4>
+                    <div id="removalSummary">No actions yet.</div>
+                </div>
+            </div>
+
+            <div class="rightColumn">
+                <div id="resultsPlaceholder" class="resultsPlaceholder">
+                    <p>Results will appear here after checking for breaches</p>
+                </div>
+                <div id="loadingIndicator" class="loadingOverlay" style="display: none;">
+                    <div class="loadingContent">
+                        <div class="spinner"></div>
+                        <p>Checking for breaches...</p>
+                        <p class="loadingSubtext">This may take a few moments</p>
+                    </div>
+                </div>
+                <!--Terry modified-->
+                <div id="resultsCard" class="resultsCard" style="display: none;">
+                    <div id="trackerRiskSection" class="tracker-risk-section" style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #eee;">
+                        <div id="riskMeterContainer"></div>
+                        <p id="riskDescription" style="font-size: 0.9rem; color: #666;"></p>
+                    </div>
+                    
+                    <h3>Breach Results</h3>
+                    <div id="breachResults"></div>
+                </div>
+            </div>
+            
+            <!-- Trung Review section  -->
+            <!-- NEW: RATING SIDEBAR (3rd column) -->
+            <div id="ratingSidebar" class="ratingSidebar">
+                <div class="ratingSidebarHeader">
+                <h3>Ratings</h3>
+
+                <div class="ratingSidebarControls">
+                    <label for="sidebarSort">Sort by</label>
+                    <select id="sidebarSort" name="sidebarSort">
+                    <option value="relevant" selected>Most relevant</option>
+                    <option value="newest">Newest</option>
+                    <option value="highest">Highest</option>
+                    <option value="lowest">Lowest</option>
+                    </select>
+                </div>
+                </div>
+
+                <!-- Empty state (shown until scans happen) -->
+                <div id="sidebarEmptyState" class="sidebarEmptyState">
+                <strong>No scanned websites yet.</strong>
+                <p>Enter a Website URL and run a scan to start collecting reviews.</p>
+                </div>
+
+                <!-- List (rendered by JS) -->
+                <div id="sidebarRatingList" class="sidebarRatingList"></div>
+
+                <!-- Write review (bottom) -->
+                <div class="writeReviewBox">
+                <h4 class="writeReviewTitle">Write a Review</h4>
+                <p id="selectedSiteLabel" class="selectedSiteLabel">Select a website from the list to review.</p>
+                <div id="selectedReviewsPreview" class="selectedReviewsPreview"></div>
+
+                <div class="writeReviewGroup">
+                    <label for="reviewStars">Rating</label>
+                    <select id="reviewStars" name="reviewStars">
+                    <option value="" selected disabled>Select</option>
+                    <option value="5">★★★★★ (5)</option>
+                    <option value="4">★★★★☆ (4)</option>
+                    <option value="3">★★★☆☆ (3)</option>
+                    <option value="2">★★☆☆☆ (2)</option>
+                    <option value="1">★☆☆☆☆ (1)</option>
+                    </select>
+                </div>
+
+                <div class="writeReviewGroup">
+                    <label for="reviewText">Comment</label>
+                    <textarea id="reviewText" name="reviewText" rows="4" placeholder="Write your review..."></textarea>
+                </div>
+
+                <button type="button" id="submitReviewBtn" class="submitReviewBtn" disabled>Submit Review</button>
+                <div id="reviewMsg" class="reviewMsg" aria-live="polite"></div>
+                </div>
+            </div>
+            <!-- END RATING SIDEBAR -->
+
+        </div>
+
+        <!-- Breach-Specific Actions (shown first - higher priority) -->
+        <div id="breachActionsDashboard" class="breachActionsDashboard" style="display: none;">
+            <div class="breachActionsBody">
+                <h3>🔐 Secure Your Breached Accounts</h3>
+                <p class="subtitle">These companies had your data compromised. Take immediate action to secure your accounts.</p>
+                <div id="breachSpecificActions"></div>
+            </div>
+        </div>
+
+        <!-- Data Removal Providers Dashboard (separate section) -->
+        <div id="providersDashboard" class="providersDashboard" style="display: none;">
+            <div class="providersBody">
+                <h3>🗑️ Remove Your Data from Brokers</h3>
+                <p class="subtitle">These data brokers aggregate personal information. Opt out to remove your data.</p>
+                <div id="removalProviders"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Copyright @ footPrint 2025
+    </div>
+</body>
+</html>
+
+

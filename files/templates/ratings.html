@@ -1,0 +1,93 @@
+<!-- Trung Nguyen - Ratings page (filters + review list, like screenshot) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ratings</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboardStyles.css') }}">
+  <script src="{{ url_for('static', filename='dashboardScripts.js') }}" defer></script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/fplogo.png') }}" alt="Logo">
+    </div>
+
+    <div class="headerItems">
+      <button id="themeToggle" type="button">Theme Toggle</button>
+      <a class="backBtn" href="{{ url_for('dashboard') }}">Back</a>
+      <button id="logOutBtn" type="button">Log Out</button>
+    </div>
+  </div>
+
+  <div class="ratingsContainer" id="ratingsPageRoot">
+    <div class="ratingsGrid">
+      <!-- Left filter panel -->
+      <div class="ratingsFilterCard">
+        <h4>Rating</h4>
+
+        <label class="filterRow">
+          <input type="radio" name="ratingFilter" value="any" checked>
+          <span>Any</span>
+        </label>
+
+        <label class="filterRow">
+          <input type="radio" name="ratingFilter" value="5">
+          <span>★★★★★</span>
+        </label>
+        <label class="filterRow">
+          <input type="radio" name="ratingFilter" value="4">
+          <span>★★★★☆</span>
+        </label>
+        <label class="filterRow">
+          <input type="radio" name="ratingFilter" value="3">
+          <span>★★★☆☆</span>
+        </label>
+        <label class="filterRow">
+          <input type="radio" name="ratingFilter" value="2">
+          <span>★★☆☆☆</span>
+        </label>
+        <label class="filterRow">
+          <input type="radio" name="ratingFilter" value="1">
+          <span>★☆☆☆☆</span>
+        </label>
+      </div>
+
+      <!-- Main list -->
+      <div class="ratingsMainCard">
+        <div class="ratingsTopBar">
+          <div>
+            <div class="ratingsTitle" id="ratingsTitle">Website Reviews</div>
+            <div class="ratingsSub" id="ratingsSub">0 reviews</div>
+          </div>
+
+          <div class="ratingsSort">
+            <label for="ratingsSortSelect">Sort by</label>
+            <select id="ratingsSortSelect">
+              <option value="newest" selected>Newest</option>
+              <option value="highest">Highest rating</option>
+              <option value="lowest">Lowest rating</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="ratingsSummaryLine" id="ratingsSummaryLine"></div>
+
+        <div id="ratingsList" class="ratingsList">
+          <!-- JS renders reviews here -->
+        </div>
+
+        <div id="ratingsEmpty" class="ratingsEmpty" style="display:none;">
+          No reviews yet for this website.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Copyright @ footPrint 2025
+  </div>
+</body>
+</html>

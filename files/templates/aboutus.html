@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>footPrint - About Us</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="about-page">
+  <div class="topContent">
+    <div class="header">
+        <div class="logo">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='img/fplogo.png') }}" alt="footPrint logo">
+        </a>
+        </div>
+
+      <div class="headerItems">
+        <div>
+          <ul class="headerLinks">
+            <li><a href="{{ url_for('about') }}" class="aboutUs">About Us</a></li>
+          </ul>
+        </div>
+
+        <button id="themeToggle">Theme Toggle</button>
+        <button id="logInBtn" type="submit">Log In</button>
+      </div>
+    </div>
+
+<!--Trung -->
+<!-- About Us Content -->
+<div class="topSection">
+  <div class="banner">About Us</div>
+
+  <div class="allText">
+
+    <div class="title">
+      Footprint is a Digital Privacy Dashboard that helps you understand and reduce your online exposure.
+    </div>
+
+    <div class="subtextOne">
+      Most people don’t realize how often personal information ends up online—through data breaches, reused passwords, and data broker websites.
+      Footprint makes those risks easier to see, so you can take action with confidence.
+    </div>
+
+    <!-- WHAT IS FOOTPRINT -->
+    <div class="infoSection">
+      <h2 class="sectionHeading">What is Footprint?</h2>
+      <p class="subtextOne">
+        <span class="highlight">Footprint</span> is a privacy dashboard that checks whether your email or password has been exposed in known breaches,
+        then helps you take the next steps—like securing accounts and removing your data from data broker websites.
+      </p>
+    </div>
+
+    <!-- WHAT IT DOES -->
+    <div class="infoSection">
+      <h2 class="sectionHeading">What Footprint Can Do</h2>
+      <ul class="bulletList">
+        <li><strong>Email breach check:</strong> shows if your email appears in public breach databases and lists the breached services.</li>
+        <li><strong>Password exposure check:</strong> checks whether a password has been seen in known breaches (without sending your raw password).</li>
+        <li><strong>Breach-specific action steps:</strong> gives security steps for certain services (example: LinkedIn, Adobe, Dropbox, etc.).</li>
+        <li><strong>Data removal protocol:</strong> provides opt-out links and step-by-step instructions for common data broker sites.</li>
+        <li><strong>Website ratings & reviews:</strong> lets users rate scanned websites and view community reviews in a dedicated ratings page.</li>
+      </ul>
+    </div>
+
+    <!-- TECHNOLOGY -->
+    <div class="infoSection">
+      <h2 class="sectionHeading">Technology Behind Footprint</h2>
+      <p class="subtextOne">
+        Footprint is built with a Flask backend and a JavaScript-powered dashboard. The backend acts as a secure proxy to external privacy APIs
+        (to avoid CORS issues and protect implementation details), and it also stores user activity like opt-out progress and website reviews in the database.
+      </p>
+
+      <div class="miniCards">
+        <div class="miniCard">
+          <h3 class="miniTitle">Frontend</h3>
+          <p class="miniText">
+            JavaScript handles form submissions, loading states, and displaying results. It also powers the removal protocol dashboard and the ratings UI.
+          </p>
+        </div>
+
+        <div class="miniCard">
+          <h3 class="miniTitle">Backend</h3>
+          <p class="miniText">
+            Flask provides authenticated API routes, calls external services for breach checks, and stores reviews + removal progress using SQLAlchemy.
+          </p>
+        </div>
+
+        <div class="miniCard">
+          <h3 class="miniTitle">Database</h3>
+          <p class="miniText">
+            Stores user accounts, removal providers, removal actions, and URL reviews so users can track progress and see community feedback.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- APIS USED -->
+    <div class="infoSection">
+      <h2 class="sectionHeading">APIs We Use</h2>
+      <ul class="bulletList">
+        <li>
+          <strong>XposedOrNot API</strong> — checks if an email appears in known breach datasets and returns the breach names.
+        </li>
+        <li>
+          <strong>Pwned Passwords (Have I Been Pwned)</strong> — checks if a password has been exposed using a privacy-safe method called <em>k-anonymity</em>
+          (only the first 5 characters of the password’s SHA-1 hash are sent).
+        </li>
+        <li>
+          <strong>Footprint Internal APIs</strong> — removal protocol routes and website review routes powered by our own database.
+        </li>
+      </ul>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="infoSection">
+      <h2 class="sectionHeading">How Footprint Works</h2>
+
+      <div class="stepBox">
+        <div class="stepRow">
+          <div class="stepNum">1</div>
+          <div class="stepText">
+            <strong>Input</strong><br>
+            You enter an email (and optionally a password) on the dashboard.
+          </div>
+        </div>
+
+        <div class="stepRow">
+          <div class="stepNum">2</div>
+          <div class="stepText">
+            <strong>Secure API Requests</strong><br>
+            The dashboard sends requests to our Flask backend, which then calls external breach-checking APIs securely server-side.
+          </div>
+        </div>
+
+        <div class="stepRow">
+          <div class="stepNum">3</div>
+          <div class="stepText">
+            <strong>Results + Guidance</strong><br>
+            You get a clear list of breach results. If breaches are found, Footprint also shows recommended security actions.
+          </div>
+        </div>
+
+        <div class="stepRow">
+          <div class="stepNum">4</div>
+          <div class="stepText">
+            <strong>Removal Protocol</strong><br>
+            If your email appears in breaches, Footprint loads a data broker opt-out dashboard so you can track “Not started → Submitted → Completed”.
+          </div>
+        </div>
+
+        <div class="stepRow">
+          <div class="stepNum">5</div>
+          <div class="stepText">
+            <strong>Community Reviews</strong><br>
+            When you scan a website URL, it gets saved locally and you can view/store ratings and comments in the database.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="infoSection">
+      <h2 class="sectionHeading">Contact</h2>
+      <p class="subtextOne">
+        We’re happy to hear feedback or suggestions at
+        <a href="mailto:footprint.teammm@gmail.com" class="highlight">footprint.teammm@gmail.com</a>.
+      </p>
+    </div>
+
+  </div>
+</div>

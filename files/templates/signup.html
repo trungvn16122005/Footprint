@@ -1,0 +1,23 @@
+<!--Terry-->
+<div id="signupModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <form action="{{ url_for('signup') }}" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label for="username">Username:</label><br>
+      <input type="text" name="username" required minlength="3" maxlength="30"><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" name="email" required><br>
+
+      <label for="password">Password:</label><br>
+      <input type="password" name="password" required minlength="8"><br>
+
+      <label for="confirm_password">Confirm Password:</label><br>
+      <input type="password" name="confirm_password" required minlength="8"><br>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>

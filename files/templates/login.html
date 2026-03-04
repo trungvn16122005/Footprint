@@ -1,0 +1,33 @@
+<!--Terry-->
+<div id="loginModal" class="modal auth-modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="modalFlashes">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form class="login-form" action="{{ url_for('login') }}" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label for="username">Username:</label>
+      <input type="text" name="username" required>
+      <label for="password">Password:</label>
+      <input type="password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    <p style="text-align: center; margin-top: 10px;">
+      Don’t have an account? 
+      <a href="#" id="openSignupLink">Create one</a>
+    </p>
+  </div>
+</div>

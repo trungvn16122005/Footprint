@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+files/instance/data.db
+venv/
+files/instance/
+**/__pycache__/
+
+# DuckDuckGo Tracker Radar Data
+tds.json
+
+# Environment files (contain secrets)
+.env
+*.env
+
+# macOS metadata
+.DS_Store
+**/.DS_Store

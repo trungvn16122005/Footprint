@@ -1,0 +1,2446 @@
+/*Ishaal*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
+:root {
+  --bg: #f7f7f8;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --orange: #f47a14;
+  --lightgray: #c9cbd1;
+  --card: #ffffff;
+  --cta-text: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide scrollbar but keep functionality */
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+ 
+html::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  background: rgba(247, 247, 248, 0.8); /* This is --bg at 80% opacity */
+  backdrop-filter: saturate(1.6) blur(8px);
+  border-bottom: 2px solid var(--line);
+  z-index: 50;
+  height: 70px;
+  overflow: visible;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.logo img {
+  height: auto;              
+  left: -18px;               
+  width: 135px;               
+  object-fit: contain;      
+  position: relative;              
+  pointer-events: none;      
+}
+
+.headerLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: var(--text);
+  font-size: 32px;
+}
+
+.headerItems {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+#themeToggle {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#themeToggle:hover {
+  background: var(--bg);
+}
+
+#logOutBtn {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--text);
+  color: var(--cta-text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#logOutBtn:hover {
+  background: #374151;
+  transform: translateY(-1px);
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: var(--line);
+  border-top: 1px solid var(--lightgray);
+  color: var(--muted);
+  font-weight: 600;
+  padding: 30px;
+  margin-top: auto;
+}
+
+.HelloMessage {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--lightgray);
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  z-index: 10;
+}
+
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: 70px 20px 40px 20px;
+  position: relative;
+}
+
+.dashboardBody {
+  width: 100%;
+  max-width: 1400px;
+  padding: 32px;
+  display: grid;
+  gap: 32px;
+  position: relative;
+  border: 2px solid var(--orange);
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--card);
+  border-radius: 16px;
+  padding: 48px;
+  border: 1px solid var(--line);
+  min-height: 825px;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.inputCard,
+.resultsCard {
+  background: transparent;
+  padding: 0;
+}
+
+.inputCard {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputCard form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.statsCard,
+.infoCard {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.inputCard h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputGroup label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(244, 122, 20, 0.1);
+}
+
+.inputGroup input::placeholder {
+  color: var(--muted);
+}
+
+.checkButton {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 8px;
+  border: none;
+  background: var(--orange);
+  color: var(--cta-text);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.checkButton:hover {
+  background: #e06d0f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(244, 122, 20, 0.3);
+}
+
+.checkButton:active {
+  transform: translateY(0);
+}
+
+/* Loading Overlay - fills results section */
+.loadingOverlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card);
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.loadingContent {
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  border: 4px solid var(--line);
+  border-top: 4px solid var(--orange);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 24px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingContent p {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.loadingSubtext {
+  color: var(--muted);
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+/* Make right column position relative for overlay */
+.rightColumn {
+  position: relative;
+}
+
+.resultsCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.resultsCard h3,
+.statsCard h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.resultsPlaceholder {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  padding: 40px;
+}
+
+.breachItem {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--orange);
+}
+
+.breachItem:last-child {
+  margin-bottom: 0;
+}
+
+.breachName {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.breachDate {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.breachDescription {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.breachData {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.noBreachFound {
+  text-align: center;
+  padding: 32px;
+  background: linear-gradient(135deg, #10b98126, #059669);
+  border-radius: 8px;
+  color: #065f46;
+}
+
+.noBreachFound h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #047857;
+}
+
+.errorMessage {
+  background: #fee;
+  border-left: 4px solid #ef4444;
+  border-radius: 8px;
+  padding: 16px;
+  color: #991b1b;
+  font-size: 14px;
+}
+
+.statsPlaceholder {
+  text-align: center;
+  color: var(--muted);
+  padding: 32px;
+  font-size: 14px;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.statValue.danger {
+  color: #ef4444;
+}
+
+.statValue.success {
+  color: #10b981;
+}
+
+.infoCard {
+  background: linear-gradient(135deg, #fff5eb, #ffedd5);
+  border: 1px solid #fed7aa;
+}
+
+.infoCard h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #9a3412;
+  margin-bottom: 12px;
+}
+
+.infoCard p {
+  font-size: 14px;
+  color: #7c2d12;
+  line-height: 1.6;
+}
+
+/* Dark mode */
+body.dark {
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+body.dark .header {
+  background: rgba(22, 22, 22, 0.8);
+  border-bottom: 2px solid #333;
+}
+
+body.dark #themeToggle {
+  background-color: #2b2b2b;
+  color: #ffffff;
+  border: 1px solid #ffd27f;
+}
+
+body.dark #themeToggle:hover {
+  background-color: #ffd27f;
+  color: #000;
+}
+
+body.dark #logOutBtn {
+  background-color: #2b2b2b;
+  color: #ffffff;
+  border: 1px solid #ffd27f;
+}
+
+body.dark #logOutBtn:hover {
+  background-color: #ffd27f;
+  color: #000;
+}
+
+body.dark .HelloMessage {
+  color: #aaaaaa;
+}
+
+body.dark .dashboardBody {
+  background: #0a0a0a;
+  border-color: #ffd27f;
+}
+
+body.dark .leftColumn,
+body.dark .rightColumn {
+  background: #121212;
+  border: 1px solid #444;
+}
+
+body.dark .inputCard h2,
+body.dark .resultsCard h3 {
+  color: #ffffff;
+}
+
+body.dark .subtitle,
+body.dark .inputGroup label {
+  color: #e0e0e0;
+}
+
+body.dark .inputGroup input {
+  background: #1a1a1a;
+  color: #ffffff;
+  border-color: #444;
+}
+
+body.dark .inputGroup input:focus {
+  border-color: #ffd27f;
+  box-shadow: 0 0 0 3px rgba(255, 210, 127, 0.1);
+}
+
+body.dark .inputGroup input::placeholder {
+  color: #666;
+}
+
+body.dark .checkButton {
+  background: #ffd27f;
+  color: #000;
+}
+
+body.dark .checkButton:hover {
+  background: #ffbc47;
+}
+
+body.dark .loadingOverlay {
+  background: #121212;
+}
+
+body.dark .loadingContent p {
+  color: #ffffff;
+}
+
+body.dark .loadingSubtext {
+  color: #aaaaaa !important;
+}
+
+body.dark .spinner {
+  border: 4px solid #333;
+  border-top: 4px solid #ffd27f;
+}
+
+body.dark .resultsPlaceholder {
+  color: #666;
+}
+
+body.dark .breachItem {
+  background: #1a1a1a;
+  border-left-color: #ffd27f;
+}
+
+body.dark .breachName {
+  color: #ffffff;
+}
+
+body.dark .breachDate,
+body.dark .breachData {
+  color: #aaaaaa;
+}
+
+body.dark .breachDescription {
+  color: #e0e0e0;
+}
+
+body.dark .noBreachFound {
+  background: linear-gradient(135deg, #1a3a1a, #0d5f0d);
+  color: #4ade80;
+}
+
+body.dark .noBreachFound h4 {
+  color: #6ee7b7;
+}
+
+body.dark .errorMessage {
+  background: #2a1a1a;
+  border-left-color: #ef4444;
+  color: #fca5a5;
+}
+
+body.dark .footer {
+  background-color: #161616;
+  border-top: 1px solid #333;
+  color: #aaaaaa;
+}
+
+/* ===== Password Breach Results ===== */
+.passwordBreachResult {
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.passwordBreachResult.breached {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border: 1px solid #fecaca;
+}
+
+.passwordBreachResult.breached.critical {
+  border-left: 4px solid #dc2626;
+}
+
+.passwordBreachResult.breached.high {
+  border-left: 4px solid #ea580c;
+}
+
+.passwordBreachResult.breached.medium {
+  border-left: 4px solid #f59e0b;
+}
+
+.passwordBreachResult.breached.low {
+  border-left: 4px solid #eab308;
+}
+
+.passwordBreachResult.safe {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #22c55e;
+}
+
+.passwordBreachHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.passwordBreachIcon {
+  font-size: 24px;
+}
+
+.passwordBreachHeader h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.passwordBreachResult.breached .passwordBreachHeader h4 {
+  color: #991b1b;
+}
+
+.passwordBreachResult.safe .passwordBreachHeader h4 {
+  color: #166534;
+}
+
+.passwordBreachMessage {
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.passwordBreachResult.breached .passwordBreachMessage {
+  color: #7f1d1d;
+}
+
+.passwordBreachResult.safe .passwordBreachMessage {
+  color: #14532d;
+}
+
+.passwordBreachAdvice {
+  font-size: 13px;
+  font-weight: 600;
+  color: #b91c1c;
+  margin-bottom: 12px;
+}
+
+.passwordBreachNote {
+  font-size: 12px;
+  color: #166534;
+  font-style: italic;
+}
+
+.passwordBreachSeverity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.severityLabel {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.severityBadge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.severityBadge.critical {
+  background: #dc2626;
+  color: #fff;
+}
+
+.severityBadge.high {
+  background: #ea580c;
+  color: #fff;
+}
+
+.severityBadge.medium {
+  background: #f59e0b;
+  color: #fff;
+}
+
+.severityBadge.low {
+  background: #eab308;
+  color: #fff;
+}
+
+.emailBreachSection {
+  margin-top: 16px;
+}
+
+.emailBreachHeader {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Email Breach Notice (when API key is missing) */
+.emailBreachNotice {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #3b82f6;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.noticeHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.noticeIcon {
+  font-size: 24px;
+}
+
+.noticeHeader h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e40af;
+  margin: 0;
+}
+
+.noticeMessage {
+  font-size: 14px;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.noticeDetail {
+  font-size: 13px;
+  color: #3b82f6;
+  font-style: italic;
+}
+
+/* Dark mode - Email Breach Notice */
+body.dark .emailBreachNotice {
+  background: linear-gradient(135deg, #1e293b, #1e3a5f);
+  border-color: #3b82f6;
+}
+
+body.dark .noticeHeader h4 {
+  color: #93c5fd;
+}
+
+body.dark .noticeMessage {
+  color: #bfdbfe;
+}
+
+body.dark .noticeDetail {
+  color: #60a5fa;
+}
+
+/* Dark mode - Password Breach Results */
+body.dark .passwordBreachResult.breached {
+  background: linear-gradient(135deg, #2a1a1a, #3a1a1a);
+  border-color: #5c2020;
+}
+
+body.dark .passwordBreachResult.breached .passwordBreachHeader h4 {
+  color: #fca5a5;
+}
+
+body.dark .passwordBreachResult.breached .passwordBreachMessage {
+  color: #fecaca;
+}
+
+body.dark .passwordBreachAdvice {
+  color: #f87171;
+}
+
+body.dark .passwordBreachResult.safe {
+  background: linear-gradient(135deg, #1a2a1a, #1a3a1a);
+  border-color: #2d5a2d;
+}
+
+body.dark .passwordBreachResult.safe .passwordBreachHeader h4 {
+  color: #86efac;
+}
+
+body.dark .passwordBreachResult.safe .passwordBreachMessage {
+  color: #bbf7d0;
+}
+
+body.dark .passwordBreachNote {
+  color: #4ade80;
+}
+
+body.dark .severityLabel {
+  color: #9ca3af;
+}
+
+body.dark .emailBreachHeader {
+  color: #e0e0e0;
+  border-bottom-color: #444;
+}
+
+/* ===== Email Breach Results (XposedOrNot format) ===== */
+.emailBreachSection {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border: 1px solid #fecaca;
+  border-left: 4px solid #ef4444;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.emailBreachHeader.breached {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.emailBreachHeader.breached h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #991b1b;
+  margin: 0;
+}
+
+.breachIcon {
+  font-size: 24px;
+}
+
+.breachSummary {
+  font-size: 14px;
+  color: #7f1d1d;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.breachList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.breachTag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+}
+
+.breachAdvice {
+  font-size: 13px;
+  color: #b91c1c;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Dark mode - Email Breach Results */
+body.dark .emailBreachSection {
+  background: linear-gradient(135deg, #2a1a1a, #3a1a1a);
+  border-color: #5c2020;
+}
+
+body.dark .emailBreachHeader.breached h4 {
+  color: #fca5a5;
+}
+
+body.dark .breachSummary {
+  color: #fecaca;
+}
+
+body.dark .breachTag {
+  background: #b91c1c;
+  box-shadow: 0 2px 4px rgba(185, 28, 28, 0.4);
+}
+
+body.dark .breachAdvice {
+  color: #f87171;
+}
+
+/* Breach List Toggle */
+.hiddenBreaches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-basis: 100%;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease-out, margin 0.3s ease-out;
+  margin-top: 0;
+}
+
+.hiddenBreaches.expanded {
+  max-height: 2000px;
+  opacity: 1;
+  margin-top: 8px;
+  transition: max-height 0.5s ease-in, opacity 0.3s ease-in, margin 0.3s ease-in;
+}
+
+.breachToggleBtn {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.breachToggleBtn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(244, 122, 20, 0.05);
+}
+
+/* Dark mode - Breach Toggle */
+body.dark .breachToggleBtn {
+  border-color: #555;
+  color: #aaa;
+}
+
+body.dark .breachToggleBtn:hover {
+  border-color: #ffd27f;
+  color: #ffd27f;
+  background: rgba(255, 210, 127, 0.1);
+}
+
+/* ===== Data Removal Protocol Summary (Left Column) ===== */
+.removalProtocolSummary {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.removalProtocolSummary h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.removalProtocolSummary .subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+/* ===== Breach-Specific Actions Dashboard ===== */
+.breachActionsDashboard {
+  width: 100%;
+  max-width: 1400px;
+  margin-top: 32px;
+  padding: 32px;
+  border: 2px solid #dc2626;
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.1);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.breachActionsBody {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.breachActionsBody h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #dc2626;
+  margin-bottom: 8px;
+}
+
+.breachActionsBody .subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+#breachSpecificActions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.breachActionCard {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  position: relative;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.breachActionCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.breachActionCard.priority-high {
+  border-left: 4px solid #dc2626;
+}
+
+.breachActionCard.priority-medium {
+  border-left: 4px solid #f59e0b;
+}
+
+.breachActionCard.priority-low {
+  border-left: 4px solid #6b7280;
+}
+
+.breachActionHeader {
+  margin-bottom: 12px;
+}
+
+.breachActionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.breachActionType {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.breachActionName {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.breachActionPriority {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.priority-badge-high {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.priority-badge-medium {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.priority-badge-low {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.breachActionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.breachActionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s;
+  width: fit-content;
+}
+
+.breachActionLink:hover {
+  background: #b91c1c;
+}
+
+.breachActionSteps {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.breachActionSteps strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.breachActionSteps ol {
+  margin: 8px 0 0 20px;
+  padding: 0;
+}
+
+.breachActionSteps li {
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.noBreachActions {
+  color: var(--muted);
+  font-style: italic;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Dark mode - Breach Actions Dashboard */
+body.dark .breachActionsDashboard {
+  background: #0a0a0a;
+  border-color: #f87171;
+}
+
+body.dark .breachActionsBody {
+  background: #121212;
+  border-color: #444;
+}
+
+body.dark .breachActionsBody h3 {
+  color: #f87171;
+}
+
+body.dark .breachActionCard {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+body.dark .breachActionCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .breachActionName {
+  color: #ffffff;
+}
+
+body.dark .breachActionType {
+  color: #aaaaaa;
+}
+
+body.dark .breachActionLink {
+  background: #ef4444;
+}
+
+body.dark .breachActionLink:hover {
+  background: #dc2626;
+}
+
+body.dark .breachActionSteps {
+  color: #aaaaaa;
+}
+
+body.dark .breachActionSteps strong {
+  color: #e0e0e0;
+}
+
+body.dark .priority-badge-high {
+  background: #3f1a1a;
+  color: #fca5a5;
+}
+
+body.dark .priority-badge-medium {
+  background: #3f2a0a;
+  color: #fcd34d;
+}
+
+body.dark .priority-badge-low {
+  background: #2a2a2a;
+  color: #9ca3af;
+}
+
+/* ===== Providers Dashboard (Separate Section) ===== */
+.providersDashboard {
+  width: 100%;
+  max-width: 1400px;
+  margin-top: 32px;
+  padding: 32px;
+  border: 2px solid var(--orange);
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.providersBody {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--line);
+}
+
+.providersBody h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.providersBody .subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* Dark mode - Providers Dashboard */
+body.dark .providersDashboard {
+  background: #0a0a0a;
+  border-color: #ffd27f;
+}
+
+body.dark .providersBody {
+  background: #121212;
+  border-color: #444;
+}
+
+body.dark .providersBody h3 {
+  color: #ffffff;
+}
+
+body.dark .providersBody .subtitle {
+  color: #aaaaaa;
+}
+
+body.dark .removalProtocolSummary {
+  border-top-color: #444;
+}
+
+body.dark .removalProtocolSummary h3 {
+  color: #ffffff;
+}
+
+body.dark .removalProtocolSummary .subtitle {
+  color: #aaaaaa;
+}
+
+.removalLoading {
+  color: var(--muted);
+  font-style: italic;
+  padding: 20px;
+  text-align: center;
+}
+
+.removalError {
+  color: #dc2626;
+  padding: 16px;
+  background: #fee;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Breaches Found Section */
+.breachesFound {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.breachesFound h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 10px;
+}
+
+.breachTagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.breachTagSmall {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #f59e0b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+/* Removal section toggle button */
+.breachTagList .breachToggleBtn {
+  flex-basis: 100%;
+  margin-top: 6px;
+  border-color: #d97706;
+  color: #92400e;
+}
+
+.breachTagList .breachToggleBtn:hover {
+  border-color: #b45309;
+  color: #78350f;
+  background: rgba(217, 119, 6, 0.1);
+}
+
+body.dark .breachTagList .breachToggleBtn {
+  border-color: #b45309;
+  color: #fcd34d;
+}
+
+body.dark .breachTagList .breachToggleBtn:hover {
+  border-color: #fcd34d;
+  color: #fef3c7;
+  background: rgba(252, 211, 77, 0.1);
+}
+
+/* Provider Cards Container */
+#removalProviders {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* Provider Cards */
+.providerCard {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+
+.providerCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.providerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.providerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.providerName {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.providerEta {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.providerBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.optOutLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s;
+  width: fit-content;
+}
+
+.optOutLink:hover {
+  background: #e06d0f;
+}
+
+.providerSteps {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.providerSteps strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.providerSteps ol {
+  margin: 8px 0 0 20px;
+  padding: 0;
+}
+
+.providerSteps li {
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+/* Status Badge */
+.statusBadge {
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+}
+
+.statusBadge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.statusBadge.status-not-started {
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+.statusBadge.status-submitted {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.statusBadge.status-completed {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Summary Section */
+.removalProtocolSummary h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+#removalSummary {
+  font-family: inherit;
+  white-space: normal;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.summaryStats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-width: 80px;
+}
+
+.summaryCount {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.summaryLabel {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.summaryNotStarted {
+  color: #6b7280;
+}
+
+.summarySubmitted {
+  color: #2563eb;
+}
+
+.summaryCompleted {
+  color: #16a34a;
+}
+
+/* Dark Mode - Removal Protocol Summary */
+body.dark .removalProtocolSummary h4 {
+  color: #ffffff;
+}
+
+body.dark .removalError {
+  background: #2a1a1a;
+  color: #fca5a5;
+}
+
+body.dark .breachesFound {
+  background: linear-gradient(135deg, #3d2a0a, #4a3410);
+  border-color: #b45309;
+}
+
+body.dark .breachesFound h4 {
+  color: #fcd34d;
+}
+
+body.dark .breachTagSmall {
+  background: #b45309;
+}
+
+body.dark .providerCard {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+body.dark .providerCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .providerName {
+  color: #ffffff;
+}
+
+body.dark .providerEta {
+  color: #aaaaaa;
+}
+
+body.dark .optOutLink {
+  background: #ffd27f;
+  color: #000;
+}
+
+body.dark .optOutLink:hover {
+  background: #ffbc47;
+}
+
+body.dark .providerSteps {
+  color: #aaaaaa;
+}
+
+body.dark .providerSteps strong {
+  color: #e0e0e0;
+}
+
+body.dark .statusBadge.status-not-started {
+  background: transparent;
+  color: #9ca3af;
+  border: 1px solid #4b5563;
+}
+
+body.dark .statusBadge.status-submitted {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+body.dark .statusBadge.status-completed {
+  background: #1a3a1a;
+  color: #4ade80;
+}
+
+body.dark .summaryItem {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+body.dark .summaryLabel {
+  color: #aaaaaa;
+}
+
+body.dark .summaryNotStarted {
+  color: #9ca3af;
+}
+
+body.dark .summarySubmitted {
+  color: #60a5fa;
+}
+
+body.dark .summaryCompleted {
+  color: #4ade80;
+}
+
+@media (max-width: 768px) {
+  .dashboardBody {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 24px;
+  }
+
+  .dashboardContainer {
+    padding: 60px 20px 20px 20px;
+    min-height: auto;
+  }
+
+  .HelloMessage {
+    font-size: 24px;
+    font-weight: 700;
+    top: 16px;
+    left: 20px;
+  }
+
+  .inputCard,
+  .resultsCard {
+    padding: 24px;
+  }
+
+  .summaryStats {
+    justify-content: center;
+  }
+
+  .providerHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .breachActionsDashboard {
+    margin-top: 24px;
+    padding: 20px;
+  }
+
+  .breachActionsBody {
+    padding: 20px;
+  }
+
+  .breachActionHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .providersDashboard {
+    margin-top: 24px;
+    padding: 20px;
+  }
+
+  .providersBody {
+    padding: 20px;
+  }
+}
+
+
+
+/* Trung - Review Dashboard */
+/* ============================
+   NEW: 3-column dashboard layout
+   ============================ */
+.dashboardBody {
+  grid-template-columns: 1fr 1fr 360px;
+  align-items: stretch;
+}
+
+/* ============================
+   NEW: Rating Sidebar
+   ============================ */
+.ratingSidebar {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 825px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.ratingSidebarHeader h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.ratingSidebarControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ratingSidebarControls label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.ratingSidebarControls select {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.ratingSidebarControls select:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(244, 122, 20, 0.1);
+}
+
+/* Empty state */
+.sidebarEmptyState {
+  background: var(--bg);
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  color: var(--muted);
+}
+.sidebarEmptyState strong {
+  color: var(--text);
+}
+.sidebarEmptyState p {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* List */
+.sidebarRatingList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+/* Item */
+.sidebarRatingItem {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.sidebarRatingItem:hover {
+  border-color: rgba(244, 122, 20, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.sidebarRatingItem.selected {
+  border-color: var(--orange);
+  box-shadow: 0 6px 20px rgba(244, 122, 20, 0.18);
+}
+
+/* Placeholder thumbnail */
+.sidebarRatingThumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+  border: 1px solid var(--line);
+}
+
+/* Title/meta */
+.sidebarRatingTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebarRatingUrl {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebarRatingStars {
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #f59e0b;
+  margin-bottom: 6px;
+}
+
+.sidebarRatingMeta {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Button */
+.sidebarViewBtn {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sidebarViewBtn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(244, 122, 20, 0.06);
+}
+
+/* ============================
+   NEW: Write Review Box
+   ============================ */
+.writeReviewBox {
+  margin-top: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.writeReviewTitle {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.selectedSiteLabel {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.writeReviewGroup {
+  margin-bottom: 12px;
+}
+
+.writeReviewGroup label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.writeReviewGroup select,
+.writeReviewGroup textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.writeReviewGroup textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.writeReviewGroup select:focus,
+.writeReviewGroup textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(244, 122, 20, 0.1);
+}
+
+.submitReviewBtn {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: none;
+  background: var(--orange);
+  color: var(--cta-text);
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submitReviewBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitReviewBtn:not(:disabled):hover {
+  background: #e06d0f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(244, 122, 20, 0.3);
+}
+
+.reviewMsg {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  min-height: 18px;
+}
+
+/* ============================
+   Dark mode for sidebar
+   ============================ */
+body.dark .ratingSidebar {
+  background: #121212;
+  border-color: #444;
+}
+
+body.dark .sidebarEmptyState {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+body.dark .sidebarEmptyState strong {
+  color: #ffffff;
+}
+
+body.dark .ratingSidebarHeader h3 {
+  color: #ffffff;
+}
+
+body.dark .ratingSidebarControls label {
+  color: #aaaaaa;
+}
+
+body.dark .ratingSidebarControls select {
+  background: #1a1a1a;
+  border-color: #444;
+  color: #ffffff;
+}
+
+body.dark .sidebarRatingItem {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+body.dark .sidebarRatingThumb {
+  background: linear-gradient(135deg, #2a2a2a, #1f1f1f);
+  border-color: #444;
+}
+
+body.dark .sidebarRatingTitle {
+  color: #ffffff;
+}
+
+body.dark .sidebarRatingUrl,
+body.dark .sidebarRatingMeta,
+body.dark .selectedSiteLabel,
+body.dark .reviewMsg,
+body.dark .writeReviewGroup label {
+  color: #aaaaaa;
+}
+
+body.dark .writeReviewBox {
+  border-top-color: #444;
+}
+
+body.dark .writeReviewTitle {
+  color: #ffffff;
+}
+
+body.dark .writeReviewGroup select,
+body.dark .writeReviewGroup textarea {
+  background: #1a1a1a;
+  border-color: #444;
+  color: #ffffff;
+}
+
+body.dark .submitReviewBtn {
+  background: #ffd27f;
+  color: #000;
+}
+
+body.dark .submitReviewBtn:not(:disabled):hover {
+  background: #ffbc47;
+}
+
+/* ============================
+   Responsive: stack on smaller screens
+   ============================ */
+@media (max-width: 1100px) {
+  .dashboardBody {
+    grid-template-columns: 1fr;
+  }
+
+  .ratingSidebar {
+    min-height: auto;
+  }
+}
+
+/* Trung Nguyen - Ratings page (filters + list) */
+
+.backBtn {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.backBtn:hover {
+  background: var(--bg);
+}
+
+/* Ratings page container */
+.ratingsContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.ratingsGrid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+}
+
+/* Cards */
+.ratingsFilterCard,
+.ratingsMainCard {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+/* Filter */
+.ratingsFilterCard h4 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.filterRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
+}
+.filterRow:hover {
+  background: rgba(0,0,0,0.03);
+}
+.filterRow span {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* Top bar */
+.ratingsTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.ratingsTitle {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text);
+}
+.ratingsSub {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.ratingsSort label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.ratingsSort select {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* Summary */
+.ratingsSummaryLine {
+  padding: 12px 0;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+/* Review list item */
+.ratingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 6px;
+}
+.reviewRow {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: start;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+}
+.reviewThumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #e5e7eb, #f3f4f6);
+  border: 1px solid var(--line);
+}
+.reviewHeaderLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+.reviewUser {
+  font-weight: 900;
+  color: var(--text);
+  font-size: 14px;
+}
+.reviewDate {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+.reviewStarsLine {
+  color: #f59e0b;
+  letter-spacing: 1px;
+  font-weight: 900;
+  margin: 6px 0;
+}
+.reviewComment {
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.5;
+  font-size: 14px;
+}
+.ratingsEmpty {
+  padding: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+/* Dark mode */
+body.dark .ratingsFilterCard,
+body.dark .ratingsMainCard {
+  background: #121212;
+  border-color: #444;
+}
+body.dark .filterRow:hover {
+  background: rgba(255,255,255,0.05);
+}
+body.dark .reviewRow {
+  background: #1a1a1a;
+  border-color: #444;
+}
+body.dark .reviewThumb {
+  background: linear-gradient(135deg, #2a2a2a, #1f1f1f);
+  border-color: #444;
+}
+body.dark .ratingsTopBar {
+  border-bottom-color: #444;
+}
+body.dark .ratingsSort select {
+  background: #1a1a1a;
+  border-color: #444;
+  color: #fff;
+}
+body.dark .reviewComment,
+body.dark .reviewUser,
+body.dark .ratingsTitle {
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ratingsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Trung Nguyen - Review preview inside sidebar */
+.selectedReviewsPreview {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 12px;
+  display: none; /* shown only when a site is selected */
+}
+
+.reviewPreviewItem {
+  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid transparent;
+}
+
+.reviewPreviewStars {
+  color: #f59e0b;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.reviewPreviewText {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.reviewPreviewMeta {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+body.dark .selectedReviewsPreview {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+body.dark .reviewPreviewText {
+  color: #ffffff;
+}
+
+body.dark .reviewPreviewMeta {
+  color: #aaaaaa;
+}
+
+/* ============================
+   Trung Nguyen — UI fixes
+   1) Ratings list shows ~7 items then scroll
+   2) Left column stops “stretch spacing” + aligns content top
+   3) Move View button to bottom of each rating card
+   4) Make orange dashboard box wider
+   ============================ */
+
+/* (4) Expand orange box (dashboard border container) */
+.dashboardBody {
+  max-width: 1600px; /* was 1400px */
+  align-items: start; /* prevents grid items stretching weirdly */
+}
+
+/* (2) Stop left column form from spreading too much */
+.inputCard form {
+  justify-content: flex-start; /* override space-between */
+}
+
+/* (1) Ratings list: show about 7 cards then scroll for the rest */
+.sidebarRatingList {
+  max-height: 560px;   /* ~7 items (adjust up/down if needed) */
+  overflow-y: auto;
+}
+
+/* Keep the write-review box pinned to bottom of sidebar */
+.writeReviewBox {
+  margin-top: auto;
+}
+
+/* (3) Put View button at the bottom of each rating card */
+.sidebarRatingItem {
+  grid-template-columns: 56px 1fr; /* remove the “auto” right-side column */
+  align-items: start;
+}
+
+.sidebarRatingAction {
+  grid-column: 1 / -1;            /* move action row to new line */
+  display: flex;
+  justify-content: flex-end;      /* button on bottom-right */
+  margin-top: 10px;
+}
+
+/* optional: make button a bit more “footer-like” */
+.sidebarViewBtn {
+  padding: 10px 16px;
+}
+
+/* Trung Nguyen — prevent long URLs from overflowing cards */
+.sidebarRatingUrl {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* If your URL is inside another wrapper, this helps too */
+.sidebarRatingInfo {
+  min-width: 0; /* important for ellipsis to work inside grid/flex */
+}
+
+/* Terry — Privacy Radar & Risk Score */
+/* ================================================== */
+
+.tracker-analysis-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--orange); /* Default color, JS will override this */
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.tracker-header h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.risk-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+/* Progress Bar */
+.risk-meter-container {
+  background: var(--bg);
+  height: 10px;
+  border-radius: 5px;
+  margin: 12px 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.risk-meter-bar {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 1s ease-in-out;
+}
+
+.tracker-description {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.tracker-description strong {
+  color: var(--text);
+}
+
+/* Dark Mode Overrides*/
+body.dark .tracker-analysis-card {
+  background: #121212;
+  border-color: #444;
+}
+
+body.dark .risk-meter-container {
+  background: #1a1a1a;
+  border-color: #333;
+}
