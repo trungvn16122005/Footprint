@@ -447,7 +447,14 @@ body {
   gap: 10px;
   animation: fadeIn 0.3s ease-in-out;
 }
-
+.modal-content p {
+  width: 100%;
+  text-align: center;
+}
+.forgot-password-link {
+  text-align: center;
+  margin-top: 8px;
+}
 .login-form,
 #signupModal form {
   display: flex;

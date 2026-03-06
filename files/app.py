@@ -13,7 +13,8 @@ from datetime import datetime, timedelta
 from tracker.activity import log_activity
 from database import get_db
 import tldextract 
-
+#Khang 
+from flask_mail import Mail, Message
 
 
 #  Create ONE Flask app (Terry)
@@ -25,6 +26,15 @@ app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY")
 
 if not app.config["SECRET_KEY"]:
     raise RuntimeError("FLASK_SECRET_KEY environment variable is required.")
+# Khang 
+# Email configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USERNAME")
+app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASSWORD")
+
+mail = Mail(app)
 
 # CSRF Configuration for production
 # Disable strict referer checking for HTTPS (Render deployment)
@@ -1341,3 +1351,88 @@ if __name__ == "__main__":
     debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
     app.run(debug=debug, host="0.0.0.0", port=port)
 
+# Khang 
+# ADD TOKEN GENERATOR FOR RECOVER PASSWORD
+from itsdangerous import URLSafeTimedSerializer
+
+serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+
+def generate_reset_token(email):
+    return serializer.dumps(email, salt="password-reset")
+
+def verify_reset_token(token, expiration=3600):
+    try:
+        email = serializer.loads(token, salt="password-reset", max_age=expiration)
+        return email
+    except:
+        return None
+
+#FORGOT PASSWORD ROUTE 
+@app.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            token = generate_reset_token(user.email)
+
+            reset_link = url_for("reset_password", token=token, _external=True)
+
+            msg = Message(
+                "Footprint Password Reset",
+                sender=app.config["MAIL_USERNAME"],
+                recipients=[email]
+            )
+
+            msg.body = f"""
+Hello,
+
+You requested to reset your Footprint password.
+
+Click the link below to reset it:
+
+{reset_link}
+
+If you did not request this, ignore this email.
+
+Footprint Security Team
+"""
+
+            mail.send(msg)
+
+        flash("If that email exists, a reset link has been sent.", "success")
+
+    return render_template("forgot_password.html")
+
+@app.route("/reset-password/<token>", methods=["GET","POST"])
+def reset_password(token):
+
+    email = verify_reset_token(token)
+
+    if not email:
+        flash("Invalid or expired reset link.", "error")
+        return redirect(url_for("home"))
+
+    if request.method == "POST":
+        password = request.form.get("password")
+
+        valid, error = validate_password(password)
+        if not valid:
+            flash(error, "error")
+            return redirect(request.url)
+
+        hashed = generate_password_hash(password, method='pbkdf2:sha256')
+
+        user = User.query.filter_by(email=email).first()
+        user.password = hashed
+
+        db.session.commit()
+
+        flash("Password updated successfully!", "success")
+
+        return redirect(url_for("home"))
+
+    return render_template("reset_password.html")
