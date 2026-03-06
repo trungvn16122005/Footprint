@@ -115,9 +115,8 @@ def check_domain_safety(url):
 
     if match:
         owner = match.get('owner', 'Unknown Entity')
-        # Use new refined logic instead of just '10'
         score = calculate_refined_score(match) if isinstance(match, dict) else 10
-        return True, owner, score
+        return True, owner, match
         
     return False, "Clean", 0
 
@@ -507,6 +506,7 @@ def login():
 
         session['user_id'] = user.id
         session['username'] = user.username
+        # Activity logging disabled for now (circular import issues in production)
         log_activity("login")
         flash("Login successful!", "success")
 
@@ -599,6 +599,7 @@ def ratings_page():
 # ===== Logout =====
 @app.route("/logout")
 def logout():
+    # Activity logging disabled for now (circular import issues in production)
     log_activity("logout")
     session.clear()
     return redirect(url_for('home'))
@@ -1324,27 +1325,37 @@ def scan_url():
     url = data.get("url", "")
     
     # This calls the helper function
-    is_blocked, owner, score = check_domain_safety(url)
+    is_blocked, owner, match = check_domain_safety(url)
     
+    reason = match.get('risk_reason', 'Minimal tracking behavior detected.')
+    final_score = match.get('score', 0) if isinstance(match, dict) else 0
+
     return jsonify({
         "url": url,
         "is_tracker": is_blocked,
         "owner": owner,
-        "risk_score": score,
+        "risk_score": final_score,
+        "risk_reason": reason,
         "message": f"Caution: This domain is owned by {owner}" if is_blocked else "Low risk."
     })
 
 def calculate_refined_score(tracker_data):
-    base_score = 1
-    # Add points based on what the tracker is known for
-    if tracker_data.get('category') == 'fingerprinting':
-        base_score += 6
-    if tracker_data.get('category') == 'ads':
-        base_score += 4
-    if tracker_data.get('category') == 'session_replay':
-        base_score += 8  # Very high risk (records mouse movements)
+    score = tracker_data.get('score', 1)
+    
+    #Attach a "Reason" based on that score
+    reason = "General Tracking"
+    if score >= 8:
+        reason = "Session Replay (Records mouse/typing)"
+    elif score >= 6:
+        reason = "Fingerprinting (Identifies your device)"
+    elif score >= 4:
+        reason = "Ad Tracking (Monitors interests)"
         
-    return min(base_score, 10) # Cap it at 10
+    #Add the reason into the data so the JS can see it
+    tracker_data['risk_reason'] = reason
+    
+    return score
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))
