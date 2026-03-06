@@ -13,7 +13,7 @@ def update_trackers():
         response.raise_for_status()
         data = response.json()
         
-        # We need to flip the data so we can look up by domain
+        #flip the data to look up by domain
         formatted_trackers = {}
         
         for entity_name, details in data.items():

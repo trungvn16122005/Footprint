@@ -194,24 +194,27 @@ function displayResults(emailResults, passwordResult, trackerResult) {
       // Define colors based on risk level
       const color = score >= 7 ? "#dc3545" : (score >= 4 ? "#ffc107" : "#28a745");
       const riskText = score >= 7 ? "High Risk" : (score >= 4 ? "Moderate Risk" : "Low Risk");
+      const reason = trackerResult.risk_reason || "General Tracking"; // Grab the reason from Python
 
       resultsHTML += `
-          <div class="tracker-analysis-card" style="border: 1px solid #ddd; border-left: 6px solid ${color}; background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                  <h4 style="margin: 0; color: #333;">Privacy Analysis: ${trackerResult.url}</h4>
-                  <span style="background: ${color}; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">
-                      ${riskText} (${score}/10)
-                  </span>
+          <div class="tracker-analysis-card" ...>
+              <div ...>
+                  <h4 ...>Privacy Analysis: ${trackerResult.url}</h4>
+                  <span ...>${riskText} (${score}/10)</span>
               </div>
               
-              <div style="background: #e9ecef; height: 12px; border-radius: 6px; overflow: hidden; margin: 15px 0;">
+              <div style="background: #e9ecef; height: 12px; ...">
                   <div style="width: ${score * 10}%; background: ${color}; height: 100%;"></div>
               </div>
-
+      
+              <p style="color: ${color}; font-weight: bold; font-size: 0.9rem; margin-bottom: 8px;">
+                  ⚠️ Detection: ${reason}
+              </p>
+      
               <p style="font-size: 0.95rem; color: #555; margin: 0; line-height: 1.5;">
                   ${trackerResult.is_tracker 
-                      ? `⚠️ <strong>Warning:</strong> This site is a known tracker owned by <b>${trackerResult.owner}</b>. It may be collecting your browsing habits.` 
-                      : `✅ <strong>Safe:</strong> This domain was not found in the DuckDuckGo Radar tracker database.`}
+                      ? `This site is a known tracker owned by <b>${trackerResult.owner}</b>.` 
+                      : `✅ <strong>Safe:</strong> Domain not found in tracker database.`}
               </p>
           </div>
       `;
