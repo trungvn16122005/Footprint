@@ -9,6 +9,8 @@ greenlet>=3.0,<4
 Flask-WTF>=1.2,<2
 WTForms>=3.1,<4
 
+Flask-Mail>=0.9,<1
+
 requests>=2.31,<3
 
 # PostgreSQL driver for Render deployment
