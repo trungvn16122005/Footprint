@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from tracker.activity import log_activity
 from database import get_db
 import tldextract 
+from updater import update_trackers
 #Khang 
 from flask_mail import Mail, Message
 
@@ -64,40 +65,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # --- TERRY: 
-# Path to the single blocklist file
 # --- TRACKER CONFIGURATION ---
-RADAR_FILE = os.path.join(app.root_path, 'tds.json')
-RADAR_URL = "https://raw.githubusercontent.com/duckduckgo/tracker-blocklists/main/web/tds.json"
-
-def update_tracker_data():
-    """Downloads the latest DDG Radar file if it doesn't exist."""
-    if not os.path.exists(RADAR_FILE):
-        try:
-            print("Downloading DuckDuckGo Tracker Radar data...")
-            r = requests.get(RADAR_URL, timeout=10)
-            with open(RADAR_FILE, 'w') as f:
-                f.write(r.text)
-        except Exception as e:
-            print(f"Could not download Radar data: {e}")
+update_trackers()
 
 def get_tracker_list():
     file_path = os.path.join(app.root_path, 'trackers.json')
-    
-    # Check if file exists first
     if not os.path.exists(file_path):
-        print("⚠️ trackers.json is missing! Creating a blank one.")
-        with open(file_path, 'w') as f:
-            json.dump({"trackers": {}}, f)
         return {}
-
     try:
         with open(file_path, 'r') as f:
-            content = f.read().strip()
-            if not content:
-                return {}
-            return json.loads(content).get('trackers', {})
-    except Exception as e:
-        print(f"❌ Error reading trackers.json: {e}")
+            return json.load(f).get('trackers', {})
+    except:
         return {}
 
 def check_domain_safety(url):
@@ -123,7 +101,7 @@ def check_domain_safety(url):
 
 # Run update on startup
 with app.app_context():
-    update_tracker_data()
+    update_trackers()
 
 # ===== User model =====
 class User(db.Model):
@@ -220,7 +198,7 @@ class UrlReview(db.Model):
 with app.app_context():
     try:
         db.create_all()
-        update_tracker_data()
+        update_trackers()
         print("Database tables created successfully.")
     except Exception as e:
         print(f"Database initialization failed: {e}")
