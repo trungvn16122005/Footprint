@@ -80,7 +80,6 @@ def get_tracker_list():
 
 def check_domain_safety(url):
     trackers = get_tracker_list()
-    # Use tldextract for professional domain parsing
     ext = tldextract.extract(url)
     domain = f"{ext.domain}.{ext.suffix}".lower()
     
@@ -94,10 +93,11 @@ def check_domain_safety(url):
 
     if match:
         owner = match.get('owner', 'Unknown Entity')
-        score = calculate_refined_score(match) if isinstance(match, dict) else 10
-        return True, owner, match
+        score = calculate_refined_score(match) 
         
-    return False, "Clean", 0
+        return True, owner, match # 'match' now contains 'owner', 'score', AND 'risk_reason'
+        
+    return False, "Clean", {}
 
 # Run update on startup
 with app.app_context():
@@ -1306,8 +1306,15 @@ def scan_url():
     # This calls the helper function
     is_blocked, owner, match = check_domain_safety(url)
     
-    reason = match.get('risk_reason', 'Minimal tracking behavior detected.')
-    final_score = match.get('score', 0) if isinstance(match, dict) else 0
+    # Check if match is a dictionary before using .get()
+    if isinstance(match, dict) and match:
+        # If it's a tracker, get the info
+        reason = match.get('risk_reason', 'Tracking behavior detected.')
+        final_score = match.get('score', 0)
+    else:
+        # If it's CLEAN (match is {} or not a dict)
+        reason = 'Minimal tracking behavior detected.'
+        final_score = 0
 
     return jsonify({
         "url": url,
@@ -1315,7 +1322,7 @@ def scan_url():
         "owner": owner,
         "risk_score": final_score,
         "risk_reason": reason,
-        "message": f"Caution: This domain is owned by {owner}" if is_blocked else "Low risk."
+        "message": f"Caution: This domain is owned by {owner}" if is_blocked else "This domain appears to be low risk."
     })
 
 def calculate_refined_score(tracker_data):

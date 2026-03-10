@@ -24,13 +24,22 @@ def update_trackers(): #function that updates the trackers
             owner_display = details.get('displayName', entity_name)
             # loops through domains, each entity owns multiple properties (each companies owns many domains)
             for domain in details.get('properties', []):
-                #makes the domain the key
+            #get the prevalence (how common it is)
+                prevalence = details.get('prevalence', 0)
+            #determine the score based on our calculate_refined_score function
+                if prevalence > 0.01:
+                    assigned_score = 10   #Very common -> Session Replay
+                elif prevalence > 0.002:
+                    assigned_score = 7    # Common -> Fingerprinting
+                else:
+                    assigned_score = 4    # Rare/Niche -> Ad Tracking
+
+            #save it to our dictionary
                 formatted_trackers[domain] = {
-                    #assigns values to key, will transform the ddg data we receive in tracker.json. 10 is very common
                     "owner": owner_display,
-                    #10 is very common, 7 is less common (looks for prevalence key, is tracker on more than 1% of web?)
-                    "score": 10 if details.get('prevalence', 0) > 0.01 else 7
+                    "score": assigned_score
                 }
+
         #opens the file tracker.json and dumps the new dictionary there)
         with open('trackers.json', 'w') as f:
             json.dump({"trackers": formatted_trackers}, f, indent=2)
