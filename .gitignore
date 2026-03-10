@@ -7,6 +7,7 @@ files/instance/
 
 # DuckDuckGo Tracker Radar Data
 tds.json
+trackers.json
 
 # Environment files (contain secrets)
 .env
